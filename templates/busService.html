@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Bus Service: {{ service }}
+{% endblock %}
+
+{% block main %}
+    <div class="container-fluid" id="info">
+        <div id="bus_description">
+            <h2 class="bus_num">Bus Service: {{ service }}</h2>
+        </div>
+        <div id="refresh">
+            <button id="refresh_button" onclick="refresh()">
+                <img id="refresh_img" src="/static/refresh.png" alt="refresh">
+            </button>
+        </div>
+    </div>
+    <div class="bus_service">
+        <div class="left_table">
+            <table class="left table table-striped">
+                <thead>
+                    <th colspan="4" class="direction">Direction 1</th>
+                </thead>
+                <tbody>
+                    <tr id="left_table" class="sub_header">
+                        <td>Bus Stop Code</td>
+                        <td>Description</td>
+                        <td>Next Bus</td>
+                        <td>Subsequent Bus</td>
+                        <td>Subsequent Bus</td>
+                    </tr>
+                    {% for res in bus_description1 %}
+                        <tr>
+                            <td>
+                                <button onclick="search_bus_stop({{ res["BusStopCode"] }})">{{ res["BusStopCode"] }}
+                                </button>
+                            </td>
+                            <td>{{ res["Description"] }}</td>
+                            <td id="next_bus">{{ res["nextbus"] }}</td>
+                            <td>{{ res["nextbus2"] }}</td>
+                            <td>{{ res["nextbus3"] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="right_table">
+            {% if bus_description2 %}
+                <table class="right table table-striped">
+                    <thead>
+                        <tr>
+                            <th colspan="4" class="direction">Direction 2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="sub_header">
+                            <td>Bus Stop Code</td>
+                            <td>Description</td>
+                            <td>Next Bus</td>
+                            <td>Subsequent Bus</td>
+                            <td>Subsequent Bus</td>
+                        </tr>
+                        {% for res in bus_description2 %}
+                            <tr>
+                                <td>
+                                    <button onclick="search_bus_stop({{ res["BusStopCode"] }})">{{ res["BusStopCode"] }}</button>
+                                </td>
+                                <td>{{ res["Description"] }}</td>
+                                <td>{{ res["nextbus"] }}</td>
+                                <td>{{ res["nextbus2"] }}</td>
+                                <td>{{ res["nextbus3"] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </div>
+    <script>
+        function search_bus_stop(bus_stop_code) {
+            document.getElementById("service").value = bus_stop_code;
+            document.getElementById("get_timing").click();
+        };
+    </script>
+{% endblock %}

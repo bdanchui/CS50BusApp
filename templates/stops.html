@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Bus Stops Near You
+{% endblock %}
+
+{% block main %}
+    {# <div id="bus_stop_list">
+        <ul>
+            {% for res in info %}
+                <li>
+                ({{ res["BusStopCode"] }}),
+                {{ res["Description"] }},
+                {{ res["Latitude" ] }},
+                {{ res["Longitude"] }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div> #}
+    <p id="longitude">{{ longitude }}</p>
+    <p id="latitude">{{ latitude }}</p>
+    <script>
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var x = document.getElementById("longitude");
+            var y = document.getElementById("latitude");
+            x.innerHTML = position.coords.latitude;
+            y.innerHTML = position.coords.longitude;
+            console.log(position.coords.latitude);
+        });
+    </script>
+{% endblock %}

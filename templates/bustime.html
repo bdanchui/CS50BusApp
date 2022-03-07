@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Bus Timing!
+{% endblock %}
+
+{% block main %}
+    <div class="busdescription">
+        {% for bus_stop in description %}
+            <tr>Bus Stop: {{ bus_stop }}</tr>
+        {% endfor%}
+    </div>
+
+    <div class="bus_timing">
+        <table id="bus_table">
+            <thead>
+                <tr>
+                    <th>Bus Service</th>
+                    <th>Next Bus</th>
+                    <th>Subsequent Bus</th>
+                    <th>Subsequent Bus</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for timing in bus_list %}
+                    <tr>
+                        <td>
+                            <button onclick=search_bus_stop({{ timing["ServiceNo"] }})>{{ timing["ServiceNo"] }}</button>
+                        </td>
+                        <td>{{ timing["NextBus"] }}</td>
+                        <td>{{ timing["NextBus2"] }}</td>
+                        <td>{{ timing["NextBus3"] }}</td>
+                    <tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <script>
+            function search_bus_stop(bus_stop_code) {
+                document.getElementById("service").value = bus_stop_code;
+                document.getElementById("get_timing").click();
+            }
+
+            function refresh() {
+                location.reload();
+            };
+        </script>
+    </div>
+{% endblock %}
